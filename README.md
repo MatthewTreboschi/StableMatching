@@ -1,4 +1,6 @@
-# StableMarraigeAnalysis
+# StableMatchingAnalysis
+The file was named stable marriage analysis before we moved on to hospitals and residents.
+The Stable Marriage problem is a subset of the hospitals and residents problem where the amount of hospitals and residents are equal and every hospital only has 1 slot and every doctor/hospital ranks all others.
 
 # Requires:
 pip install names
