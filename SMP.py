@@ -1,12 +1,4 @@
-"""Project by Matthew Treboschi and Dan Ksel
-This code was designed to test the efficiency of the Gale Shapely algorithm
-at creating a stable solution to the Hospital/Residency Problem with 
-minimal regret where regret is defined as the average rank of the pick that
-each participant recieved minus the best rank they could have gotten.
-
-This code may require "pip install names"
-"""
-
+# main program
 
 import random
 import names
