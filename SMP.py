@@ -23,14 +23,14 @@ for i in range(nDocs):
 	docsRate.append([docName])
 	docs.append(docName)
 
-#generate initial list of docs
+#generate initial list of hospitals
 for i in range(nHosp):
 	hospName = str(i)
 	hospRate.append([hospName])
 	hosp.append(hospName)
 
 
-#generate ratings
+#generate doctors' ratings
 for j in range(nDocs):
 	tempHosp = hosp.copy()
 
@@ -49,7 +49,7 @@ for j in range(nDocs):
 			docsRate[j].append(tempHosp[r])
 			tempHosp.pop(r)
 
-
+#generate hospitals' ratings
 for j in range(nHosp):
 	tempDocs = docs.copy()	
 	
@@ -65,6 +65,7 @@ for j in range(nHosp):
 			r = random.randint(0,nDocs-1-k)
 			hospRate[j].append(tempDocs[r])
 			tempDocs.pop(r)
+
 print()
 print("Doctor's ratings")
 for i in range(nDocs):
@@ -79,12 +80,37 @@ print()
 print("Open slots per Hospital")
 print(*openSlots, sep = "\t")
 
+def regretCalc(hApplicants):
+	regret = 0
+	selectCount = 0
+	for i in range(len(hApplicants)-1):
+		for j in range(len(hApplicants[i])):
+			regret += hApplicants[i][j]-j-1
+			selectCount-=-1
+	regret = regret/selectCount
+	return regret
+
+def printMatch(hApplicants, hospRate):
+	print()
+	print("Results:")
+	for i in range(len(hApplicants)-1):
+		for j in range(len(hApplicants[i])):
+			if hApplicants[i][j]<len(hospRate[i])-1:
+				hApplicants[i][j] = hospRate[i][hApplicants[i][j]]
+			else:
+				hApplicants[i][j] = "Nobody"
+	for i in range(len(hApplicants)):
+		print(str(i), *hApplicants[i], sep = "\t\t")
+	
+
+
 
 def StableMatch(docs, docsRate, hospRate, openSlots):
 	hApplicants = [] # list of the top applicant for each hospital
 	noMatch = docsRate.copy() # list of the mattchless doctors
 	matched = []
-	
+	bumpCount = 0
+
 	# fill hApplicants with below lowest rank doctors
 	for slot in range(len(openSlots)):
 		hApplicants.append([])
@@ -107,6 +133,7 @@ def StableMatch(docs, docsRate, hospRate, openSlots):
 		#bump
 		bump = hApplicants[choiceHosp].pop()
 		if len(hospRate[choiceHosp]) != bump: # if the person bumped wasn't nobody
+			bumpCount-=-1
 			if len(hospRate[choiceHosp]) > bump: # if 
 				bump = docs.index(hospRate[choiceHosp][bump]) 
 				bumped = docsRate[bump]
@@ -117,17 +144,13 @@ def StableMatch(docs, docsRate, hospRate, openSlots):
 				hApplicants[-1].append(bumped)
 			else:
 				noMatch.append(bumped)
-	print()
-	print("Results:")
-	for i in range(len(hApplicants)-1):
-		for j in range(len(hApplicants[i])):
-			if hApplicants[i][j]<len(hospRate[i])-1:
-				hApplicants[i][j] = hospRate[i][hApplicants[i][j]]
-			else:
-				hApplicants[i][j] = "Nobody"
-	for i in range(len(hApplicants)):
-		print(str(i), *hApplicants[i], sep = "\t\t")
+	print("Average regret per selection for Doctors: " + str(bumpCount/len(docsRate)))
+	print("Average regret per selection for hospitals: " + str(regretCalc(hApplicants)))
 	
+	printMatch(hApplicants, hospRate)
+
+
+
 StableMatch(docs, docsRate, hospRate, openSlots)
 
 
