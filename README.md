@@ -1,6 +1,12 @@
 # StableMatchingAnalysis
 The file was named stable marriage analysis before we moved on to hospitals and residents.
-The Stable Marriage problem is a subset of the hospitals and residents problem where the amount of hospitals and residents are equal and every hospital only has 1 slot and every doctor/hospital ranks all others.
+The Stable Marriage problem is a subset of the hospitals and residents problem where the amount of hospitals and residents are equal and every hospital only has 1 slot and every doctor/hospital ranks all others
+
+Project by Matthew Treboschi and Dan Ksel
+This code was designed to test the efficiency of the Gale Shapely algorithm
+at creating a stable solution to the Hospital/Residency Problem with 
+minimal regret where regret is defined as the average rank of the pick that
+each participant recieved minus the best rank they could have gotten.
 
 # Requires:
 pip install names
