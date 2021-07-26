@@ -8,7 +8,7 @@ from SMPhelper import *
 
 nDocs = int(sys.argv[1]) #number of doctors
 nHosp = int(sys.argv[2]) #number of hospitals 
-n = int(sys.argv[3])
+n = int(sys.argv[3]) #number of iterations
 
 
 docRegret = 0
